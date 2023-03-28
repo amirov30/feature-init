@@ -25,10 +25,11 @@ public class BookService implements BookServiceImpl {
 
     @Override
     public void delete(Long id) {     //delete
-        if(id!=null) {
+
+        try {
             bookRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("There is no book with this ID");
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException ("There is no book with ID " + id);
         }
     }
 

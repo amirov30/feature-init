@@ -26,8 +26,7 @@ public class WishlistController {
 
     @PutMapping("/add")
     public ResponseEntity<Wishlist> create(@RequestBody CreateWishlist createWishlist) {
-
-        return ResponseEntity.ok(wishlistService.create(createWishlist));
+        return ResponseEntity.ok(wishlistService.addBook(createWishlist));
     }
     @GetMapping
     public ResponseEntity<Page<Wishlist>> getAll(@PageableDefault(size = 5) Pageable page) {

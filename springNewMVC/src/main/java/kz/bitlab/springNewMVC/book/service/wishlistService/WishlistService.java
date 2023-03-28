@@ -26,11 +26,7 @@ public class WishlistService {
         this.wishlistRepository = wishlistRepository;
     }
     public void delete(Long id) {     //delete
-        if(id!=null) {
-            wishlistRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("There is no Book with this ID");
-        }
+        wishlistRepository.deleteById(id);
     }
     public Wishlist getById(Long id) {
         Optional<Wishlist> Wishlist = wishlistRepository.findById(id);
@@ -40,21 +36,28 @@ public class WishlistService {
             throw new RuntimeException("There is no book with this ID");
         }
     }
-    public Wishlist create(CreateWishlist createWishlist) {
+    public Wishlist addBook(CreateWishlist createWishlist) {
+        Optional<Book> maybeBook = bookRepository.findById(createWishlist.getBookId());
+        if(maybeBook.isEmpty()) {
+            throw new RuntimeException();
+        }
+        Book book = maybeBook.get();
+        Optional<Wishlist> maybeWish = wishlistRepository.findByUserId(createWishlist.getUserId());
+        Wishlist wishlist;
+        if(maybeWish.isPresent()){
+            wishlist = maybeWish.get();
+            wishlist.getBooks().add(book);
+        } else {
+            wishlist = new Wishlist();
+            wishlist.setUserId(createWishlist.getUserId());
 
-        Wishlist wishlist = new Wishlist();
+            List<Book> books = new ArrayList<>();
+            books.add(book);
 
-        wishlist.setUserId(createWishlist.getUuid());
-
-        wishlistRepository.save(wishlist);
-
-        List<Book> books = new ArrayList<>();
-        Book book = bookRepository.findAllById(createWishlist.getBook());
-        books.add(book);
-
-        wishlist.setBooks(books);
-        
+            wishlist.setBooks(books);
+        }
         return wishlistRepository.save(wishlist);
+
     }
 
     public Page<Wishlist> getAll(Pageable page) {

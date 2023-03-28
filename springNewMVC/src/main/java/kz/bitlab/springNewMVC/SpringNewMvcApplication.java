@@ -1,14 +1,13 @@
 package kz.bitlab.springNewMVC;
 
+//http://localhost:8080/api/v1/swagger-ui/index.html
+
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 
 public class SpringNewMvcApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(SpringNewMvcApplication.class, args);
 	}

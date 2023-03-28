@@ -7,9 +7,7 @@ import kz.bitlab.springNewMVC.book.domain.model.Category;
 import kz.bitlab.springNewMVC.book.repository.BookRepository;
 import kz.bitlab.springNewMVC.book.service.bookService.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.data.domain.Page;
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -69,6 +67,5 @@ public class BookController {
             Pageable pageable
     ) {
         return bookService.filter(name,description,minPrice,maxPrice,minPages,maxPages,pageable,category);
-
     }
 }
